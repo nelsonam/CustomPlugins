@@ -247,12 +247,12 @@ object RegressionEvaluatorUtil {
                  resultDataFrame: DataFrame): HdfsDelimitedTabularDataset = {
     val outputPathStr = HdfsParameterUtils.getOutputPath(operatorParameters)
     listener.notifyMessage("Output path is : " + outputPathStr)
-    val driverHdfs = FileSystem.get(sparkContext.hadoopConfiguration)
-    val outputPath = new Path(outputPathStr)
-    if (driverHdfs.exists(outputPath)) {
-      listener.notifyMessage("Deleting previous output.")
-      driverHdfs.delete(outputPath, true)
-    }
+
+   //use the SparkUtils class to delete the file path and save as a TSV
+    val overwrite = HdfsParameterUtils.getOverwriteParameterValue(operatorParameters)
+    if (overwrite)
+      sparkUtils.deleteFilePathIfExists(outputPathStr)
+
     sparkUtils.saveAsTSV(outputPathStr, resultDataFrame, Some(operatorParameters.operatorInfo))
   }
 

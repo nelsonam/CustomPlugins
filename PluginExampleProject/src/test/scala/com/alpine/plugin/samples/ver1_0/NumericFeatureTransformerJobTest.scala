@@ -1,8 +1,11 @@
 package com.alpine.plugin.samples.ver1_0
 
 import com.alpine.plugin.test.mock.OperatorParametersMock
+import com.alpine.plugin.test.utils.{ParameterMockUtil, SimpleAbstractSparkJobSuite}
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.{DataFrame, SQLContext}
+import org.junit.runner.RunWith
+import org.scalatest.junit.JUnitRunner
 
 /**
  * This show cases an alternate way of creating the DataFrame
@@ -31,8 +34,10 @@ object IrisFlowerPrediction {
     sQLContext.createDataFrame(inputWithType)
   }
 }
-class NumericFeatureTransformerJobTest extends SimpleAbstractSparkJobSuite {
 
+@RunWith(classOf[JUnitRunner])
+class NumericFeatureTransformerJobTest extends SimpleAbstractSparkJobSuite {
+  import com.alpine.plugin.core.spark.utils.TestSparkContexts._
   test("Test addendum and schema"){
     val path = "src/test/resources/irisDataSet"
     val irisData = sc.textFile(path )
@@ -63,5 +68,4 @@ class NumericFeatureTransformerJobTest extends SimpleAbstractSparkJobSuite {
     assert(addendum(NumericFeatureTransformerUtil.transformationTypeVisualKey).toString
            .equals(NumericFeatureTransformerUtil.pow2))
   }
-
 }

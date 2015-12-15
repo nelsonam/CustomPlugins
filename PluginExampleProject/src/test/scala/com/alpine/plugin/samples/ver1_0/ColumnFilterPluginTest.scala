@@ -1,13 +1,25 @@
 package com.alpine.plugin.samples.ver1_0
 
 import com.alpine.plugin.test.mock.OperatorParametersMock
+import com.alpine.plugin.test.utils.{ParameterMockUtil, SimpleAbstractSparkJobSuite}
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.types.{IntegerType, StringType, StructField, StructType}
+import org.junit.runner.RunWith
+import org.scalatest.junit.JUnitRunner
 
-
+/**
+  * The @ruthWith annotation enables the test to be run from the command line with "mvn test"
+  *
+  */
+@RunWith(classOf[JUnitRunner])
 class ColumnFilterPluginTest extends SimpleAbstractSparkJobSuite  {
-
+  /*import the TestSparkContexts which provides two transient variables which can be used in each tests:
+  1. sc: A local Spark Context
+  2. sqlContext: A Sql Context
+  The trait destroys the Spark Context after the tests are run.
+  */
+  import  com.alpine.plugin.core.spark.utils.TestSparkContexts._
   test("Col Filter"){
     //create the input data frame
     val inputRows = List(

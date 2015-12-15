@@ -24,6 +24,8 @@ import scala.util.Try
  * 1) The good data
  * 2) An html table (with default styling) of a report about the bad data which was removed
  * 3) A "fancy" html table with custom styling determined by the value of the input parameter
+  *
+  * NOTE: Many of the features showcased in this plugin were added in the 1.4.2 Custom Operator SDK which ships with 5.8
  */
 class BadDataReportingPluginSignature extends OperatorSignature[
   BadDataReportingPluginGUINode,
